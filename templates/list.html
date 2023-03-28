@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ma page</title>
+    <style>
+        /* Mise en forme générale */
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+h1 {
+	text-align: center;
+	margin: 30px 0;
+}
+
+/* Formulaire de recherche */
+form {
+	display: flex;
+	align-items: center;
+	margin-bottom: 30px;
+}
+
+label {
+	margin-right: 10px;
+}
+
+input[type="text"] {
+	padding: 5px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+}
+
+button[type="submit"] {
+	padding: 5px 10px;
+	border: none;
+	border-radius: 3px;
+	background-color: #0077cc;
+	color: #fff;
+	cursor: pointer;
+}
+
+button:hover {
+	background-color: #005ea6;
+}
+
+/* Bouton d'ajout */
+.button {
+	display: inline-block;
+	padding: 5px 10px;
+	border: none;
+	border-radius: 3px;
+	background-color:#3aa600 ;
+	color: #fff;
+	text-decoration: none;
+}
+
+.button:hover {
+	background-color: #3aa600;
+}
+
+/* Tableau */
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+thead {
+	background-color: #0077cc;
+	color: #fff;
+}
+
+th, td {
+	padding: 10px;
+	text-align: left;
+}
+
+tbody tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+    </style>
+</head>
+<body>
+	<h1>Crud client </h1>
+
+	<!-- Formulaire de recherche -->
+	<form method="GET" action="{% url 'list' %}">
+		<input type="text" name="q" placeholder="Rechercher...">
+		<button type="submit">Rechercher</button>
+	</form>
+	
+
+	<!-- Bouton d'ajout -->
+	<a href="{% url 'create' %}" class="button">Ajouter</a>
+
+	<!-- Tableau -->
+	<table>
+		<thead>
+			<tr>
+				<th>Nom</th>
+				<th>Email</th>
+				<th>Téléphone</th>
+                <th>status</th>
+                <th>action</th>
+			</tr>
+		</thead>
+		<tbody>
+            {% for client in clients %}
+        <tr>
+			<td>{{client.full_name}}</td>
+            <td>{{client.email}}</td>
+            <td>{{client.phone}}</td>
+            <td>{{client.status}}</td>
+            <td>
+                <a href="{% url 'update' client.id %}" class="button">mofidier</a>
+				<a href="{% url 'delete' client.id %}" class="button">supprimer</a>
+                
+            </td>
+        </tr>
+            {% endfor %}
+			<!-- Ajouter plus de lignes ici -->
+		</tbody>
+	</table>
+</body>
+</html>
